@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% load my_filters_and_tags %}
+{% block title %}
+    首页
+{% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "font-awesome-4.7.0/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "base.css" %}">
+{% endblock css %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="text-secondary font-weight-bold py-2 f-15 choice">
+                    <a class="pb-2 active"
+                       href="#">
+                        <i class="fa fa-bars mr-1"></i>最新
+                    </a>
+                    <a class="pb-2 ml-4 "
+                       href="#">
+                        <i class="fa fa-fire mr-1"></i>最热
+                    </a>
+                </div>
+                <!-- 搜索栏 -->
+                <div class="row " style="margin-top: 1rem!important;margin-bottom: 1rem!important;">
+                    <div class="col-auto mr-auto">
+                        <form class="form-inline my-2 my-lg-0" action="{% url "search" %}">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="wd">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i> </button>
+                        </form>
+                    </div>
+                </div>
+
+                {% include "article/summary-list.html" %}
+                {% include "article/pagination.html" %}
+            </div>
+            <div class="col-lg-4">
+                    {% include 'article/base_right.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

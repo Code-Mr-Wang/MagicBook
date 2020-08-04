@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% load my_filters_and_tags %}
+{% block title %}{{ blog_type.title }}{% endblock %}
+{% block css %}
+     <link rel="stylesheet" href="{% static "type.css" %}">
+    <link rel="stylesheet" href="{% static "base.css" %}">
+
+{% endblock css%}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="description hea_css px-3 pt-3 pb-1">
+                <p class="float-right mb-0">共<span class="mx-2 text-info">{{ articles.paginator.num_pages}}</span>篇</p>
+                <h5 class="f-17"><strong><strong>文章分类:</strong>{{ blog_type.title }}</strong></h5>
+            </div>
+            <div class="text-secondary font-weight-bold py-2 f-15 choice">
+                <a class="pb-2" href="#">
+                    <i class="fa fa-bars mr-1"></i>时间排序</a>
+                <a class="pb-2 ml-4" href="#">
+                    <i class="fa fa-fire mr-1"></i>热度排序</a>
+            </div>
+            {% include "article/summary-list.html" %}
+            {% include "article/pagination.html" %}
+        </div>
+        <div class="col-lg-4">
+            {% include 'article/base_right.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

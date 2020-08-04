@@ -1,0 +1,48 @@
+{% load my_filters_and_tags %}
+<div class="summary-list">
+                   {% for article in blogs %}
+                    <div class="media mb-1 mb-sm-2 p-2 p-lg-3">
+                            {% if article.avatar %}
+                                <div class="align-self-center mr-2 mr-lg-3 w-25 modal-open">
+                                    <a href="#" target="_blank">
+                                        <img class="w-100 article-img" src="{{ article.avatar.url }}"
+                                             alt="{{ article.title }}">
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <div class="media-body">
+                                <div class="text-muted mb-2 f-12">
+                                    <img class="avatar" src="/media/tag/default.png" alt="wcy">
+                                    <span>wcy</span>
+                                    <span><i
+                                            class="fa fa-calendar-times-o ml-2 mr-1"></i>{{ article.created|timesince_zh }}</span>
+                                </div>
+                                <h6 class="mt-0 font-weight-bold text-info f-17">
+                                    <a href="{% url 'article:article_detail' article.id %}"
+                                       target="_blank">{{ article.title }}</a>
+                                </h6>
+{#                                <p class="d-none d-sm-block mb-2 f-15">#}
+{#                                    {{ article.body|striptags|slice:'20' }}#}
+{#                                </P>#}
+                                 <p class="d-none d-sm-block mb-2 f-15">{{ article.body|striptags|truncatechars:100 }}</p>
+                                 <p class="d-block d-sm-none mb-2 f-15">{{ article.body|striptags|truncatechars:50 }}</p>
+
+                                <div class="text-muted mb-0 f-12">
+                                    <a href="#" clas="cate">
+                                        <i class="fa fa-columns mr-1" style=" color:
+                                           yellowgreen;"></i>{{ article.column }}
+                                    </a>
+                                     {% for tag in article.tags.all %}
+                                    <a class="cate" href="{% url 'article:article_list' %}?tag={{ tag }}"
+                                       title="查看当前分类下更多文章">
+                                        <i class="fa fa-book mr-1"></i>{{ tag }}</a>
+                                     {% endfor %}
+                                    <span><i class="fa fa-eye ml-2 mr-1"></i>{{ article.total_views }}</span>
+                                    <a href="#" target="_blank" title="查看文章评论">
+                                        <i class="fa fa-comments ml-2 mr-1"></i>{{ article.comments.count }}</a>
+                                </div>
+                            </div>
+
+                    </div>
+                {% endfor %}
+                </div>
